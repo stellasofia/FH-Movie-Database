@@ -5,15 +5,52 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Movie {
+
     private final String title;
     private final String description;
     private final List<Genre> genres;
+    //neue hinzufügen, damit man das JSON in das Objekt umschreiben kann. (sonst kennt sich der Compiler nicht aus wie der das Überschreiben soll)
+    //alle Sachen die wir zurückbekommen von unserer Antwort
+    private final String id;
+    private final int releaseYear;
+    private final String imgUrl;
+    private final int lengthInMinutes;
+    private final List<String> directors;
+    private final List<String> writers;
+    private final List<String> mainCast;
+    private final double rating;
+
 
     public Movie(String title, String description, List<Genre> genres) {
         this.title = title;
         this.description = description;
         this.genres = genres;
+        this.id = null;
+        this.releaseYear = 0;
+        this.imgUrl = "";
+        this.lengthInMinutes = 0;
+        this.directors = null;
+        this.writers = null;
+        this.mainCast = null;
+        this.rating = 0;
+
     }
+
+    // Überladen - damit nicht alles abändern muss
+    public Movie(String title, String description, List<Genre> genres,String id, int releaseYear, String imgUrl, int lengthInMinutes, List<String> directors, List<String> writers, List<String> mainCast, double rating) {
+        this.title = title;
+        this.description = description;
+        this.genres = genres;
+        this.id = id;
+        this.releaseYear = releaseYear;
+        this.imgUrl = imgUrl;
+        this.lengthInMinutes = lengthInMinutes;
+        this.directors = directors;
+        this.writers = writers;
+        this.mainCast = mainCast;
+        this.rating = rating;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -39,6 +76,38 @@ public class Movie {
 
     public List<Genre> getGenres() {
         return genres;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public int getLengthInMinutes() {
+        return lengthInMinutes;
+    }
+
+    public List<String> getDirectors() {
+        return directors;
+    }
+
+    public List<String> getWriters() {
+        return writers;
+    }
+
+    public List<String> getMainCast() {
+        return mainCast;
+    }
+
+    public double getRating() {
+        return rating;
     }
 
     public static List<Movie> initializeMovies(){
