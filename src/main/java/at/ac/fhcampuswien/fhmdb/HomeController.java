@@ -120,6 +120,7 @@ public class HomeController implements Initializable {
                     movie.getDescription().toLowerCase().contains(query.toLowerCase())
                 )
                 .toList();
+
     }
 
 
