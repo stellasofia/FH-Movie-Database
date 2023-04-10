@@ -39,7 +39,7 @@ public class MovieAPI {
         return url.toString();
     }
 
-    //Ohne Parameter Aufgerufen wird dann:  //Übersichtlicher, damti man es nicht später in den anderen Methoden schreiben muss
+    //Ohne Parameter Aufgerufen wird dann:  //Übersichtlicher, damit man es nicht später in den anderen Methoden schreiben muss
     public static List<Movie> getAllMovies(){
         return getAllMovies(null, null, null, null);
     }
@@ -57,7 +57,7 @@ public class MovieAPI {
                 .addHeader("User-Agent", "http.agent")
                 .build();
 
-        //wo ein 404 error kommen könnte dann machst de sowas, weil es sont in der Laufzeit einen Error geben könnte
+        //wo ein 404 error kommen könnte dann machst de sowas, weil es sonst in der Laufzeit einen Error geben könnte
         //Dort wo es fehleranfällig ist Try-Catch
         OkHttpClient client = new OkHttpClient();
         try (Response response = client.newCall(request).execute()){
