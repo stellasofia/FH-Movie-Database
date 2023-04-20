@@ -145,9 +145,6 @@ public class HomeController implements Initializable {
             throw new IllegalArgumentException("movies must not be null");
         }
 
-        if(movies == null) {
-            throw new IllegalArgumentException("movies must not be null");
-        }
 
         double minRating = Double.parseDouble(rating.replace("+", ""));
         return movies.stream()
@@ -271,12 +268,14 @@ public class HomeController implements Initializable {
     }
 
 
+
     // Check Streams:
     public static void main(String[] args) {
-        System.out.println(getMoviesBetweenYears(Movie.memeMovies(), 1999,2000));
+        System.out.println(getMoviesBetweenYears(Movie.memeMovies(), 1999,2000).toString());
         System.out.println(countMoviesFrom(Movie.memeMovies(), "hi"));
         System.out.println(getLongestMovieTitle(Movie.memeMovies()));
         System.out.println(getMostPopularActor(Movie.memeMovies()));
 
     }
+
 }

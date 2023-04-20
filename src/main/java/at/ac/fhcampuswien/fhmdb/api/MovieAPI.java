@@ -57,8 +57,7 @@ public class MovieAPI {
                 .addHeader("User-Agent", "http.agent")
                 .build();
 
-        //wo ein 404 error kommen könnte dann machst de sowas, weil es sonst in der Laufzeit einen Error geben könnte
-        //Dort wo es fehleranfällig ist Try-Catch
+
         OkHttpClient client = new OkHttpClient();
         try (Response response = client.newCall(request).execute()){
             //bekommen response in JSON format sollen es aber auf unsere Klassen "parsen" -> die Movies gleich draus machen

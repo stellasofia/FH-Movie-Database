@@ -68,6 +68,10 @@ public class Movie {
 
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
 
     @Override
     public boolean equals(Object obj) {
