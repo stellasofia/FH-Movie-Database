@@ -267,15 +267,4 @@ public class HomeController implements Initializable {
                 .collect(Collectors.toList());     // Step 4: collect the filtered movies into a list and return it
     }
 
-
-
-    // Check Streams:
-    public static void main(String[] args) {
-        System.out.println(getMoviesBetweenYears(Movie.memeMovies(), 1999,2000).toString());
-        System.out.println(countMoviesFrom(Movie.memeMovies(), "hi"));
-        System.out.println(getLongestMovieTitle(Movie.memeMovies()));
-        System.out.println(getMostPopularActor(Movie.memeMovies()));
-
-    }
-
 }

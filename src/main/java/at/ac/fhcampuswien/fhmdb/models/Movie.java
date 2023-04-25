@@ -159,30 +159,4 @@ public class Movie {
         return movies;
     }
 
-    public static List<Movie> memeMovies(){
-        List<Movie> movies = new ArrayList<>();
-        String[] directors = new String[]{"hi", "ho"};
-        String[] mainCast = new String[]{"Harry Potter", "Harry Styles"};
-
-        String[] directors2 = new String[]{"hi"};
-        String[] mainCast2 = new String[]{"Kein Ahnung", "Harry Styles"};
-
-
-        movies.add(new Movie(
-                "1234567",
-                Arrays.stream(directors).toList(),
-                Arrays.stream(mainCast).toList(),
-                1999
-        ));
-
-        movies.add(new Movie(
-                "123",
-                Arrays.stream(directors2).toList(),
-                Arrays.stream(mainCast2).toList(),
-                2020
-        ));
-
-        return movies;
-    }
-
 }
