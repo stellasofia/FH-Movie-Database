@@ -70,7 +70,7 @@ public class MovieAPI {
             return Arrays.asList(movies);
         }
         catch (Exception e){
-            System.err.println(); //damit User erfährt, dass was falsch gelaufen ist.
+            System.err.println("Could not get the movies from the API."); //damit User erfährt, dass was falsch gelaufen ist.
         }
         return new ArrayList<>(); //damit es nicht abstürzt eine leere Liste übergeben.
     }

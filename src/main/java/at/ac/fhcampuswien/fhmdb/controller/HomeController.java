@@ -1,4 +1,4 @@
-package at.ac.fhcampuswien.fhmdb;
+package at.ac.fhcampuswien.fhmdb.controller;
 
 import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
@@ -51,9 +51,9 @@ public class HomeController implements Initializable {
 
     public List<Movie> allMovies;
 
-    protected ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
+    public ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
 
-    protected SortedState sortedState;
+    public SortedState sortedState;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
