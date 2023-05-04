@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.controller;
 
+import at.ac.fhcampuswien.fhmdb.FhmdbApplication;
 import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
@@ -12,10 +13,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,6 +39,9 @@ public class HomeController implements Initializable {
 
     @FXML
     public TextField searchField;
+
+    @FXML
+    public JFXButton watchlistBtn;
 
     @FXML
     public JFXListView movieListView;
@@ -47,6 +59,8 @@ public class HomeController implements Initializable {
     public JFXComboBox ratingFromComboBox;
     @FXML
     public Button resetBtn;
+    @FXML
+    public VBox mainVBox;
 
 
     public List<Movie> allMovies;
@@ -204,7 +218,6 @@ public class HomeController implements Initializable {
         }
     }
 
-
     // RESET BUTTON
     public void clearBtnClicked(ActionEvent actionEvent) {
         genreComboBox.getSelectionModel().clearSelection();
@@ -218,6 +231,20 @@ public class HomeController implements Initializable {
 
     public void sortBtnClicked(ActionEvent actionEvent) {
         sortMovies();
+    }
+
+
+    // SWITCH SCENE:
+    public void switchToWatchlistView(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 890, 620);
+            Stage stage = (Stage)mainVBox.getScene().getWindow();
+            stage.setScene(scene);
+
+        } catch (IOException ioe) {
+            System.err.println("Error while loading main page.");
+        }
     }
 
 
