@@ -1,7 +1,9 @@
 package at.ac.fhcampuswien.fhmdb.ui;
 
+import at.ac.fhcampuswien.fhmdb.datalayer.WatchlistRepository;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -9,6 +11,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class MovieCell extends ListCell<Movie> {
@@ -19,6 +23,7 @@ public class MovieCell extends ListCell<Movie> {
     private final JFXButton addToWatchlistBtn = new JFXButton("Add to watchlist");
     private final VBox layout = new VBox(title, detail, genre, detailBtn, addToWatchlistBtn);
 
+    WatchlistRepository repository = new WatchlistRepository();
 
     @Override
     protected void updateItem(Movie movie, boolean empty) {
@@ -64,5 +69,6 @@ public class MovieCell extends ListCell<Movie> {
             setGraphic(layout);
         }
     }
+
 }
 

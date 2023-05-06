@@ -11,7 +11,7 @@ public class Movie {
     private final List<Genre> genres;
     //neue hinzufügen, damit man das JSON in das Objekt umschreiben kann. (sonst kennt sich der Compiler nicht aus wie der das Überschreiben soll)
     //alle Sachen die wir zurückbekommen von unserer Antwort
-    private final String id;
+    private final String apiId;
     private final int releaseYear;
     private final String imgUrl;
     private final int lengthInMinutes;
@@ -26,7 +26,7 @@ public class Movie {
         this.title = title;
         this.description = description;
         this.genres = genres;
-        this.id = null;
+        this.apiId = null;
         this.releaseYear = 0;
         this.imgUrl = "";
         this.lengthInMinutes = 0;
@@ -38,11 +38,11 @@ public class Movie {
     }
 
     // Überladen - damit nicht alles abändern muss
-    public Movie(String title, String description, List<Genre> genres,String id, int releaseYear, String imgUrl, int lengthInMinutes, List<String> directors, List<String> writers, List<String> mainCast, double rating) {
+    public Movie(String title, String description, List<Genre> genres,String apiId, int releaseYear, String imgUrl, int lengthInMinutes, List<String> directors, List<String> writers, List<String> mainCast, double rating) {
         this.title = title;
         this.description = description;
         this.genres = genres;
-        this.id = id;
+        this.apiId = apiId;
         this.releaseYear = releaseYear;
         this.imgUrl = imgUrl;
         this.lengthInMinutes = lengthInMinutes;
@@ -57,7 +57,7 @@ public class Movie {
         this.title = title;
         this.description = "";
         this.genres = null;
-        this.id = null;
+        this.apiId = null;
         this.releaseYear = releaseYear;
         this.imgUrl = "";
         this.lengthInMinutes = 0;
@@ -99,8 +99,8 @@ public class Movie {
         return genres;
     }
 
-    public String getId() {
-        return id;
+    public String getApiId() {
+        return apiId;
     }
 
     public int getReleaseYear() {
