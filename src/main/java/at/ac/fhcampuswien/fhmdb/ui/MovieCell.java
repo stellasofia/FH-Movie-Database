@@ -28,11 +28,8 @@ public class MovieCell extends ListCell<Movie> {
     private final Label genre = new Label();
     private final JFXButton detailBtn = new JFXButton("Show Details");
     private final JFXButton addToWatchlistBtn = new JFXButton("Add to watchlist");
-    private final JFXButton removeBtn = new JFXButton("Remove");
 
     private final VBox layout = new VBox(title, detail, genre, detailBtn, addToWatchlistBtn);
-
-    private final boolean isWatchlistCell; // unterscheiden zwischen home und watchlist moviecell
 
     WatchlistRepository repository = new WatchlistRepository();
 
@@ -40,7 +37,7 @@ public class MovieCell extends ListCell<Movie> {
 
 
     public MovieCell(boolean isWatchlistCell) {
-        this.isWatchlistCell = isWatchlistCell;
+        // unterscheiden zwischen home und watchlist moviecell
         // color scheme
         detailBtn.setPrefWidth(110);
         detailBtn.getStyleClass().add("background-yellow");

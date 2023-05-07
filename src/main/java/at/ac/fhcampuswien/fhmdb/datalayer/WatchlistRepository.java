@@ -39,7 +39,7 @@ public class WatchlistRepository {
 
 
     private WatchlistEntity movieToWatchlistEntity(Movie movie){
-        return new WatchlistEntity(movie.getApiId(),movie.getTitle(),movie.getDescription(),WatchlistEntity.genresToString(movie.getGenres()),movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(), movie.getRating());
+        return new WatchlistEntity(movie.getApiId(),movie.getTitle(),movie.getDescription(),WatchlistEntity.genresToString(movie.getGenres()), movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(), movie.getRating());
     }
 
 }

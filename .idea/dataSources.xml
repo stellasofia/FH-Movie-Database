@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="watchlistdb" uuid="c618dc45-4ec5-4796-a5e9-8f1fda8a223b">
+    <data-source source="LOCAL" name="watchlistdb" uuid="e48a098d-bc72-4672-8426-d1f068157ecb">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>

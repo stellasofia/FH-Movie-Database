@@ -33,11 +33,6 @@ public class WatchlistEntity {
 
     public WatchlistEntity(){} //no-argument constructor required by DAO(?)
 
-    public WatchlistEntity(String apiId){ /*als test, damit man nur einen parameter von movie abgibt
-                                           (kann man löschen, dann auch in WatchlistRepository ändern)*/
-        this.apiId = apiId;
-    }
-
     public WatchlistEntity(String apiId, String title, String description, String genres, int releaseYear, String imgUrl, int lengthInMinutes, double rating) {
         this.apiId = apiId;
         this.title = title;
@@ -108,11 +103,11 @@ public class WatchlistEntity {
         List<String> genresStrings = genres.stream()  //create stream of genre objects
                 .map(Genre::toString)                 //map each genre object to its string representation (genres -> genres.toString)
                 .collect(Collectors.toList());        //collect the strings into list
-        return String.join(", ", genresStrings);  //separate with comma
+        return String.join(",", genresStrings);  //separate with comma
     }
     public Movie toMovie() {
         List<Genre> genres = Arrays.stream(this.genres.split(","))
                 .map(Genre::valueOf)
                 .collect(Collectors.toList());
-        return new Movie(title, description, genres, apiId, releaseYear, imgUrl, lengthInMinutes, rating);
+        return new Movie(apiId, title, description, genres, releaseYear, imgUrl, lengthInMinutes, rating);
 }}

@@ -36,19 +36,6 @@ public class Database {
             MovieCell.showExceptionDialog(new DatabaseException("Error occurred with the Database"));
         }
     }
-    public static Database getInstance()
-    {
-        if(instance == null)
-        {
-            instance = new Database();
-        }
-        return instance;
-    }
-
-    public  ConnectionSource getConnectionSource()
-    {
-        return connectionSource;
-    }
 
     private static void createConnectionSource() throws SQLException {
         connectionSource = new JdbcConnectionSource(DB_URL, user, password);

@@ -32,20 +32,14 @@ import java.util.stream.Collectors;
 
 public class WatchlistViewController {
     @FXML
-    public Button watchlistBtn;
-    @FXML
     public VBox mainVBox;
     @FXML
     public JFXListView movieWatchlistView;
     @FXML
     public JFXButton mainPageBtn;
-
-    public ObservableList<Movie> observableMovies;
     WatchlistRepository repository;
 
    public void initialize() {
-       System.out.println("WatchlistViewController initialized");
-
        System.out.println("WatchlistViewController initialized");
 
        repository = new WatchlistRepository();
