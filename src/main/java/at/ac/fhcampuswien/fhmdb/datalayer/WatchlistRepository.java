@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.datalayer;
 
+import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.j256.ormlite.dao.Dao;
 
@@ -21,7 +22,8 @@ public class WatchlistRepository {
     public void addToWatchList(Movie movie) throws SQLException {
         dao.create(movieToWatchlistEntity(movie));
     }
-    public void removeFromWatchList(Movie movie){
+    public void removeFromWatchList(Movie movie) throws SQLException {
+        dao.delete(movieToWatchlistEntity(movie));
 
     }
     public List<WatchlistEntity> getAll() throws SQLException {
@@ -30,7 +32,7 @@ public class WatchlistRepository {
 
 
     private WatchlistEntity movieToWatchlistEntity(Movie movie){
-        return new WatchlistEntity(movie.getApiId());
+        return new WatchlistEntity(movie.getTitle(),movie.getDescription(),WatchlistEntity.genresToString(movie.getGenres()),movie.getApiId(),movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(), movie.getRating());
     }
 
 }

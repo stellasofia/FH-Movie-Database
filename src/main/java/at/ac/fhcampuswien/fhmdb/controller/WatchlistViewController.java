@@ -37,20 +37,17 @@ public class WatchlistViewController {
     public JFXListView movieWatchlistView;
     @FXML
     public JFXButton mainPageBtn;
-    public JFXListView movieWatchListView;
+
+    public ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
     WatchlistRepository repo;
 
    public void initialize() {
         System.out.println("WatchlistViewController initialized");
 
-        repo = new WatchlistRepository();
-        List<WatchlistEntity> watchList = new ArrayList<>();
+       movieWatchlistView.setItems(observableMovies);   // set the items of the listview to the observable list
+       movieWatchlistView.setCellFactory(movieListView -> new MovieCell());
 
-        try {
-            watchList = repo.getAll();
-        }catch (SQLException e){
-            throw new RuntimeException();
-        }
+
        /* ObservableList<Movie> movies = FXCollections.observableArrayList(watchList.stream()
                 .map(WatchlistEntity:: toMovie)
                 .collect(Collectors.toList())

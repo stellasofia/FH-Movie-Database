@@ -48,8 +48,6 @@ public class HomeController implements Initializable {
 
     @FXML
     public JFXListView movieListView;
-    @FXML
-    public VBox mainPane;
 
     @FXML
     public JFXComboBox genreComboBox;

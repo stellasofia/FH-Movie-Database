@@ -44,11 +44,6 @@ public class Database {
         return instance;
     }
 
-    public Dao<WatchlistEntity, Long> getDao()
-    {
-        return dao;
-    }
-
     public  ConnectionSource getConnectionSource()
     {
         return connectionSource;
