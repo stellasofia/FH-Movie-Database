@@ -38,7 +38,7 @@ public class WatchlistViewController {
     @FXML
     public JFXButton mainPageBtn;
 
-    public ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
+    public ObservableList<Movie> observableMovies;
     WatchlistRepository repository;
 
    public void initialize() {
@@ -67,7 +67,11 @@ public class WatchlistViewController {
 
        movieWatchlistView.setItems(observableMovies);   // set the items of the listview to the observable list
        movieWatchlistView.setCellFactory(movieListView -> new MovieCell(true)); // apply custom cells to the listview
+
+
    }
+
+
 
         // SWITCH SCENE:
     public void switchToMainPage(ActionEvent event) throws IOException {

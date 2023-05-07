@@ -237,7 +237,7 @@ public class HomeController implements Initializable {
     }
 
     // SWITCH SCENE:
-    public void switchToWatchlistView(ActionEvent event) throws IOException {
+    public void switchToWatchlistView(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
         try {
             Scene scene = new Scene(fxmlLoader.load(), 890, 620);

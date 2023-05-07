@@ -94,7 +94,7 @@ public class MovieCell extends ListCell<Movie> {
         if (!isWatchlistCell){
             addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
                 try {
-                    repository.addToWatchList(getItem());
+                    repository.addToWatchlist(getItem());
                 } catch (SQLException e) {
 
                 }
@@ -102,7 +102,7 @@ public class MovieCell extends ListCell<Movie> {
         } else if (isWatchlistCell) {
             addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
                 try {
-                    repository.removeFromWatchList(getItem());
+                    repository.removeFromWatchlist(getItem());
 
                 } catch (SQLException e) {
 

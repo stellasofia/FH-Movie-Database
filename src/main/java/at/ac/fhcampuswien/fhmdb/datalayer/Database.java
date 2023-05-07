@@ -58,7 +58,7 @@ public class Database {
     }
 
 
-    public static Database getDatabase() throws SQLException { //exception zu WatchlistRepository
+    public static Database getDatabase()  { //exception zu WatchlistRepository
         if(instance == null){ //if no instance exists create new Database instance, only one instance should exist(singleton)
             instance = new Database();
         }
