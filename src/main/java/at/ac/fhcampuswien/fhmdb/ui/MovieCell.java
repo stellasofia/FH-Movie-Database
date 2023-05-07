@@ -112,36 +112,6 @@ public class MovieCell extends ListCell<Movie> {
 
     }
 
-    private VBox getDetails() {
-        VBox details = new VBox();
-        Label releaseYear = new Label("Release Year: " + getItem().getReleaseYear());
-        Label length = new Label("Length: " + getItem().getLengthInMinutes() + " minutes");
-        Label rating = new Label("Rating: " + getItem().getRating() + "/10");
-
-        Label directors = new Label("Directors: " + String.join(", ", getItem().getDirectors()));
-        Label writers = new Label("Writers: " + String.join(", ", getItem().getWriters()));
-        Label mainCast = new Label("Main Cast: " + String.join(", ", getItem().getMainCast()));
-
-        Font font = Font.font("Arial", FontWeight.NORMAL, 14);
-
-        releaseYear.setFont(font);
-        length.setFont(font);
-        rating.setFont(font);
-        directors.setFont(font);
-        writers.setFont(font);
-        mainCast.setFont(font);
-
-        releaseYear.getStyleClass().add("text-white");
-        length.getStyleClass().add("text-white");
-        rating.getStyleClass().add("text-white");
-        directors.getStyleClass().add("text-white");
-        writers.getStyleClass().add("text-white");
-        mainCast.getStyleClass().add("text-white");
-
-        details.getChildren().addAll(releaseYear, rating, length, directors, writers, mainCast);
-        return details;
-    }
-
 
     private VBox getDetails() {
         VBox details = new VBox();
@@ -172,7 +142,6 @@ public class MovieCell extends ListCell<Movie> {
         details.getChildren().addAll(releaseYear, rating, length, directors, writers, mainCast);
         return details;
     }
-
 
 
 
