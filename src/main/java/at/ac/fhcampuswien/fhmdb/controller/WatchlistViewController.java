@@ -39,23 +39,35 @@ public class WatchlistViewController {
     public JFXButton mainPageBtn;
 
     public ObservableList<Movie> observableMovies = FXCollections.observableArrayList();
-    WatchlistRepository repo;
+    WatchlistRepository repository;
 
    public void initialize() {
-        System.out.println("WatchlistViewController initialized");
+       System.out.println("WatchlistViewController initialized");
+
+       System.out.println("WatchlistViewController initialized");
+
+       repository = new WatchlistRepository();
+       List<WatchlistEntity> movieEntities = new ArrayList<>();
+
+       try {
+           movieEntities = repository.getAll();
+       } catch (SQLException e) {
+
+       }
+
+       for (WatchlistEntity element : movieEntities) {
+           System.out.println(element);
+       }
+
+       ObservableList<Movie> observableMovies = FXCollections.observableArrayList(
+               movieEntities.stream()
+                       .map(WatchlistEntity::toMovie)
+                       .collect(Collectors.toList()));
+
 
        movieWatchlistView.setItems(observableMovies);   // set the items of the listview to the observable list
-       movieWatchlistView.setCellFactory(movieListView -> new MovieCell());
-
-
-       /* ObservableList<Movie> movies = FXCollections.observableArrayList(watchList.stream()
-                .map(WatchlistEntity:: toMovie)
-                .collect(Collectors.toList())
-        );*/
-
-      //  movieWatchlistView.setItems(movies);
-     // SPÄTER FIXEN    movieWatchlistView.setCellFactory(movieListView -> new MovieCell(true));
-    }
+       movieWatchlistView.setCellFactory(movieListView -> new MovieCell(true)); // apply custom cells to the listview
+   }
 
         // SWITCH SCENE:
     public void switchToMainPage(ActionEvent event) throws IOException {

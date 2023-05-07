@@ -1,7 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.ui;
 
 import at.ac.fhcampuswien.fhmdb.datalayer.WatchlistRepository;
-import at.ac.fhcampuswien.fhmdb.models.ClickEventHandler;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
@@ -14,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class MovieCell extends ListCell<Movie> {
@@ -33,7 +33,7 @@ public class MovieCell extends ListCell<Movie> {
     private boolean collapsedDetails = true;
 
 
-    public MovieCell(boolean isWatchlistCell, ClickEventHandler addToWatchlistClicked) {
+    public MovieCell(boolean isWatchlistCell) {
         this.isWatchlistCell = isWatchlistCell;
         // color scheme
         detailBtn.setPrefWidth(110);
@@ -84,12 +84,62 @@ public class MovieCell extends ListCell<Movie> {
 
         // layout
         title.fontProperty().set(title.getFont().font(20));
-        detail.setMaxWidth(this.getScene().getWidth() - 30);
         detail.setWrapText(true);
         layout.setPadding(new Insets(10));
         layout.spacingProperty().set(10);
         layout.alignmentProperty().set(javafx.geometry.Pos.CENTER_LEFT);
 
+
+        addToWatchlistBtn.setText(isWatchlistCell ? "Remove" : "Add to watchlist");
+        if (!isWatchlistCell){
+            addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
+                try {
+                    repository.addToWatchList(getItem());
+                } catch (SQLException e) {
+
+                }
+            });
+        } else if (isWatchlistCell) {
+            addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
+                try {
+                    repository.removeFromWatchList(getItem());
+
+                } catch (SQLException e) {
+
+                }
+            });
+        }
+
+    }
+
+    private VBox getDetails() {
+        VBox details = new VBox();
+        Label releaseYear = new Label("Release Year: " + getItem().getReleaseYear());
+        Label length = new Label("Length: " + getItem().getLengthInMinutes() + " minutes");
+        Label rating = new Label("Rating: " + getItem().getRating() + "/10");
+
+        Label directors = new Label("Directors: " + String.join(", ", getItem().getDirectors()));
+        Label writers = new Label("Writers: " + String.join(", ", getItem().getWriters()));
+        Label mainCast = new Label("Main Cast: " + String.join(", ", getItem().getMainCast()));
+
+        Font font = Font.font("Arial", FontWeight.NORMAL, 14);
+
+        releaseYear.setFont(font);
+        length.setFont(font);
+        rating.setFont(font);
+        directors.setFont(font);
+        writers.setFont(font);
+        mainCast.setFont(font);
+
+        releaseYear.getStyleClass().add("text-white");
+        length.getStyleClass().add("text-white");
+        rating.getStyleClass().add("text-white");
+        directors.getStyleClass().add("text-white");
+        writers.getStyleClass().add("text-white");
+        mainCast.getStyleClass().add("text-white");
+
+        details.getChildren().addAll(releaseYear, rating, length, directors, writers, mainCast);
+        return details;
     }
 
 

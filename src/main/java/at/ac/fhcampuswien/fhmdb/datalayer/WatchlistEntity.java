@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.fhmdb.datalayer;
 
 import at.ac.fhcampuswien.fhmdb.models.Genre;
+import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -101,9 +102,7 @@ public class WatchlistEntity {
     public void setRating(double rating){
         this.rating = rating;
     }
-    public WatchlistEntity toMovie() {
-        return new WatchlistEntity(apiId, title, description, genres, releaseYear, imgUrl, lengthInMinutes, rating);
-    }
+
 
    public static String genresToString(List<Genre> genres) {
         List<String> genresStrings = genres.stream()  //create stream of genre objects
@@ -111,9 +110,9 @@ public class WatchlistEntity {
                 .collect(Collectors.toList());        //collect the strings into list
         return String.join(", ", genresStrings);  //separate with comma
     }
-    /*public WatchlistEntity toMovie() {
+    public Movie toMovie() {
         List<Genre> genres = Arrays.stream(this.genres.split(","))
                 .map(Genre::valueOf)
                 .collect(Collectors.toList());
-        return new WatchlistEntity(apiId, title, description, genres, releaseYear, imgUrl, lengthInMinutes, rating);
-}*/}
+        return new Movie(title, description, genres, apiId, releaseYear, imgUrl, lengthInMinutes, rating);
+}}

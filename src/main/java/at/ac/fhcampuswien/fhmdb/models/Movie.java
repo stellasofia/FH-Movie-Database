@@ -21,6 +21,19 @@ public class Movie {
     private final double rating;
 
 
+    public Movie(String title, String description, List<Genre> genres, String apiId, int releaseYear, String imgUrl, int lengthInMinutes, double rating) {
+        this.title = title;
+        this.description = description;
+        this.genres = genres;
+        this.apiId = apiId;
+        this.releaseYear = releaseYear;
+        this.imgUrl = imgUrl;
+        this.lengthInMinutes = lengthInMinutes;
+        this.directors = null;
+        this.writers = null;
+        this.mainCast = null;
+        this.rating = rating;
+    }
 
     public Movie(String title, String description, List<Genre> genres) {
         this.title = title;
