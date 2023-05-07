@@ -1,11 +1,15 @@
 package at.ac.fhcampuswien.fhmdb.api;
 
+import at.ac.fhcampuswien.fhmdb.exceptions.MovieApiException;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.models.Genre;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import okhttp3.*;
 import com.google.gson.*;
 
@@ -70,8 +74,8 @@ public class MovieAPI {
 
             return Arrays.asList(movies);
         }
-        catch (Exception e){
-            System.err.println("Could not get the movies from the API."); //damit User erfährt, dass was falsch gelaufen ist.
+        catch (IOException ioe){
+            MovieCell.showExceptionDialog(new MovieApiException("An error occurred while loading the movies")); //damit User erfährt, dass was falsch gelaufen ist.
         }
         return new ArrayList<>(); //damit es nicht abstürzt eine leere Liste übergeben.
     }

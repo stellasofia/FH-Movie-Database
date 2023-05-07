@@ -245,7 +245,7 @@ public class HomeController implements Initializable {
             stage.setScene(scene);
 
         } catch (IOException ioe) {
-            System.err.println("Error while loading main page.");
+            MovieCell.showExceptionDialog(new IOException("An error occurred while switching scenes"));
         }
     }
 
@@ -300,12 +300,15 @@ public class HomeController implements Initializable {
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear) // Step 3: filter the stream to include only movies released between startYear and endYear
                 .collect(Collectors.toList());     // Step 4: collect the filtered movies into a list and return it
     }
-/* SPÄTER AUSKOMMENTIEREN WENNS GEHT
-public void loadWatchlistView(){
-        FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
-        try{
-            Scene scene = new Scene(fxmlLoader.load(), 898, 628);
-            Stage stage = (Stage)mainPane.getScene().getWindow();
-        }
-}*/
+
+    public void loadWatchlistView(){
+            FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
+
+            try{
+                Scene scene = new Scene(fxmlLoader.load(), 898, 628);
+                Stage stage = (Stage)mainVBox.getScene().getWindow();
+            } catch (IOException ioe) {
+                MovieCell.showExceptionDialog(new IllegalArgumentException("Watchlist cannot be loaded"));
+            }
+    }
 }

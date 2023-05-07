@@ -1,8 +1,10 @@
 package at.ac.fhcampuswien.fhmdb.controller;
 
 import at.ac.fhcampuswien.fhmdb.FhmdbApplication;
+import at.ac.fhcampuswien.fhmdb.api.MovieAPI;
 import at.ac.fhcampuswien.fhmdb.datalayer.WatchlistEntity;
 import at.ac.fhcampuswien.fhmdb.datalayer.WatchlistRepository;
+import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import com.jfoenix.controls.JFXButton;
@@ -52,7 +54,7 @@ public class WatchlistViewController {
        try {
            movieEntities = repository.getAll();
        } catch (SQLException e) {
-
+           MovieCell.showExceptionDialog(new DatabaseException("Problem with the Database"));
        }
 
        for (WatchlistEntity element : movieEntities) {
@@ -81,7 +83,8 @@ public class WatchlistViewController {
             Stage stage = (Stage)mainVBox.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {
-            System.err.println("Error while loading main page.");
+            //System.err.println("Error while loading main page.");
+            MovieCell.showExceptionDialog(new IOException("Error occurred while loading"));
         }
     }
 }

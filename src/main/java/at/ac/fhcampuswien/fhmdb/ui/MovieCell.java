@@ -1,18 +1,24 @@
 package at.ac.fhcampuswien.fhmdb.ui;
 
+import at.ac.fhcampuswien.fhmdb.FhmdbApplication;
 import at.ac.fhcampuswien.fhmdb.datalayer.WatchlistRepository;
+import at.ac.fhcampuswien.fhmdb.exceptions.DatabaseException;
 import at.ac.fhcampuswien.fhmdb.models.Movie;
 import com.jfoenix.controls.JFXButton;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
@@ -54,28 +60,7 @@ public class MovieCell extends ListCell<Movie> {
             setGraphic(layout);
         });
 
-        //ADDING LATER addToWatchlistBtn.setText(isWatchlistCell ? "Remove" : "Add to watchlist");
-        // addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
-             /* ADD LATER   if (isWatchlistCell){
-            try {
-            repository.removeFromWatchList(getItem());
-                FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
-                Parent root = FXMLLoader.load(fxmlLoader.getLocation());
-                Scene scene = addToWatchlistBtn.getScene();
-                scene.setRoot(root);
-            }catch (SQLException e){
-                throw new RuntimeException(e);
-            }catch (IOException e){
-                throw new RuntimeException(e);
-            }
-                }else {
-                    try {
-                        repository.addToWatchList(getItem());
-                    }catch (SQLException e){
-                        throw new RuntimeException(e);
-                    }
-                }
-                });*/
+
         title.getStyleClass().add("text-yellow");
         detail.getStyleClass().add("text-white");
         genre.getStyleClass().add("text-white");
@@ -96,16 +81,23 @@ public class MovieCell extends ListCell<Movie> {
                 try {
                     repository.addToWatchlist(getItem());
                 } catch (SQLException e) {
-
+                    MovieCell.showExceptionDialog(new DatabaseException("An error occurred when adding a movie"));
                 }
             });
         } else if (isWatchlistCell) {
             addToWatchlistBtn.setOnMouseClicked(mouseEvent -> {
                 try {
                     repository.removeFromWatchlist(getItem());
+                    // Reloading page after removing movie
+                    FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
+                    Parent root = FXMLLoader.load(fxmlLoader.getLocation());
+                    Scene scene = addToWatchlistBtn.getScene();
+                    scene.setRoot(root);
 
                 } catch (SQLException e) {
-
+                    MovieCell.showExceptionDialog(new DatabaseException("An error occurred when adding a movie"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             });
         }
@@ -145,8 +137,6 @@ public class MovieCell extends ListCell<Movie> {
 
 
 
-
-
     @Override
     protected void updateItem(Movie movie, boolean empty) {
         super.updateItem(movie, empty);
@@ -174,6 +164,37 @@ public class MovieCell extends ListCell<Movie> {
             setGraphic(layout);
 
     }}
+
+    // http://www.java2s.com/example/java/javafx/show-javafx-exception-dialog.html
+    // Last visited: 07.05.2023
+    public static void showExceptionDialog(Throwable throwable) {
+        //throwable.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fhmdb Dialog");
+        alert.setHeaderText("Thrown Exception");
+        alert.setContentText("App has thrown an exception.");
+
+        Label label = new Label("The exception stacktrace was:");
+
+        TextArea textArea = new TextArea(throwable.getMessage());
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(label, 0, 0);
+        expContent.add(textArea, 0, 1);
+
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.show();
+    }
 
 }
 
