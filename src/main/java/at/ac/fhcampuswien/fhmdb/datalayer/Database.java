@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.fhmdb.datalayer;
 
+import at.ac.fhcampuswien.fhmdb.ui.MovieCell;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -18,12 +19,47 @@ public class Database {
 
     private static Database instance;
 
-    private Database() throws SQLException{ //exception zu getDatabase
+   /* private Database() throws SQLException{ //exception zu getDatabase
          // when creating an instance -> connection to database is created, DAO is created, table is created
             createConnectionSource(); //
             dao = DaoManager.createDao(connectionSource, WatchlistEntity.class);
             createTables();
 
+    }*/
+    private Database() {
+        try {
+            createConnectionSource();
+            dao = DaoManager.createDao(connectionSource, WatchlistEntity.class);
+            createTables();
+        } catch (SQLException e) {
+            System.out.println("WRONG");
+        }
+    }
+    public static Database getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new Database();
+        }
+        return instance;
+    }
+
+    public Dao<WatchlistEntity, Long> getDao()
+    {
+        return dao;
+    }
+
+    public  ConnectionSource getConnectionSource()
+    {
+        return connectionSource;
+    }
+
+    private static void createConnectionSource() throws SQLException {
+        connectionSource = new JdbcConnectionSource(DB_URL, user, password);
+    }
+
+    private void createTables() throws SQLException {
+        TableUtils.createTableIfNotExists(connectionSource, WatchlistEntity.class);
     }
 
 
@@ -33,7 +69,7 @@ public class Database {
         }
         return instance;
     }
-
+/*
     private static void createTables() throws SQLException { //create table form WatchlistEntity attributes
         TableUtils.createTableIfNotExists(connectionSource, WatchlistEntity.class);
     }
@@ -42,7 +78,7 @@ public class Database {
     private static void createConnectionSource() throws SQLException {
         connectionSource = new JdbcConnectionSource(DB_URL, user, password); //connection protected with user and password
     }
-
+*/
     public Dao getWatchlistDao(){
         return this.dao;
     }

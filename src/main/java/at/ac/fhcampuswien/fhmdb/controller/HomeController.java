@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.PublicKey;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -47,6 +48,8 @@ public class HomeController implements Initializable {
 
     @FXML
     public JFXListView movieListView;
+    @FXML
+    public VBox mainPane;
 
     @FXML
     public JFXComboBox genreComboBox;
@@ -286,6 +289,11 @@ public class HomeController implements Initializable {
         return result;
     }
 
+    public void setMovies(List<Movie> movies){allMovies = movies;}
+    public void setMovieList(List<Movie> movies){
+        observableMovies.clear();
+        observableMovies.addAll(movies);
+    }
     static List<Movie> getMoviesBetweenYears(List<Movie> movies, int startYear, int endYear){
         if (movies == null || movies.isEmpty()) {
             return null;
@@ -294,5 +302,12 @@ public class HomeController implements Initializable {
                 .filter(movie -> movie.getReleaseYear() >= startYear && movie.getReleaseYear() <= endYear) // Step 3: filter the stream to include only movies released between startYear and endYear
                 .collect(Collectors.toList());     // Step 4: collect the filtered movies into a list and return it
     }
-
+/* SPÄTER AUSKOMMENTIEREN WENNS GEHT
+public void loadWatchlistView(){
+        FXMLLoader fxmlLoader = new FXMLLoader(FhmdbApplication.class.getResource("watchlist-view.fxml"));
+        try{
+            Scene scene = new Scene(fxmlLoader.load(), 898, 628);
+            Stage stage = (Stage)mainPane.getScene().getWindow();
+        }
+}*/
 }
