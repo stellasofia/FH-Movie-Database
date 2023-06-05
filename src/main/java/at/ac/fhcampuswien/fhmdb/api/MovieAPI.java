@@ -21,6 +21,7 @@ public class MovieAPI {
 
 
     //damit wir die dann hinschicken können hehe
+    /*
     private static String buildURL(String query, Genre genre, String releaseYear, String ratingFrom){
 
         StringBuilder url = new StringBuilder(URL_API);
@@ -41,7 +42,19 @@ public class MovieAPI {
                 url.append("ratingFrom=").append(ratingFrom).append(DELIMITER);
             }
         }
+        System.out.println(url.toString());
         return url.toString();
+
+    }
+     */
+
+    private static String buildURL(String query, Genre genre, String releaseYear, String ratingFrom) {
+        return new URLBuilder()
+                .withQuery(query)
+                .withGenre(genre)
+                .withReleaseYear(releaseYear)
+                .withRatingFrom(ratingFrom)
+                .build();
     }
 
     //Ohne Parameter Aufgerufen wird dann:  //Übersichtlicher, damit man es nicht später in den anderen Methoden schreiben muss
