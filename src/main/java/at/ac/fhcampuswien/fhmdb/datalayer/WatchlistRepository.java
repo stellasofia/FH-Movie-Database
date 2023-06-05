@@ -7,17 +7,32 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-//EXTRA LAYER TO ACCESS DAO FROM DATABASE
+// EXTRA LAYER TO ACCESS DAO FROM DATABASE
 public class WatchlistRepository {
-    Dao<WatchlistEntity, Long> dao;
-    public WatchlistRepository(){ //exception von Database
+    private static WatchlistRepository instance;
+    private Dao<WatchlistEntity, Long> dao;
 
-            this.dao = Database.getDatabase().getWatchlistDao();
-
+    // The constructor of WatchlistRepository is made private to prevent direct instantiation
+    private WatchlistRepository() {
+        // Exception handling code here
+        this.dao = Database.getDatabase().getWatchlistDao();
     }
 
-    //angabe hat WatchlistEntity als parameter, im video wird das objekt in die entity umgewandelt
+    // The getInstance() method provides access to the singleton instance.
+    // It checks if the instance is null and creates a new instance if it is.
+
+    // The getInstance() method is synchronized to ensure thread safety in a multi-threaded environment.
+    public static synchronized WatchlistRepository getInstance() {
+        if (instance == null) {
+            instance = new WatchlistRepository();
+        }
+        return instance;
+    }
+
+    // Rest of the class implementation...
+
     public void addToWatchlist(Movie movie) throws SQLException {
+        // addToWatchlist implementation...
         String title = movie.getTitle().replace("'", "''");
         if (dao.queryForEq("title", title).isEmpty()) {
             dao.create(movieToWatchlistEntity(movie));
@@ -26,6 +41,7 @@ public class WatchlistRepository {
     }
 
     public void removeFromWatchlist(Movie movie) throws SQLException {
+        // removeFromWatchlist implementation...
         String title = movie.getTitle().replace("'", "''");
         List<WatchlistEntity> movies = dao.queryForEq("title", title);
         if (!movies.isEmpty()) {
@@ -33,13 +49,14 @@ public class WatchlistRepository {
             System.out.println("Deleted " + movie.getTitle() + " from Watchlist");
         }
     }
+
     public List<WatchlistEntity> getAll() throws SQLException {
+        // getAll implementation...
         return dao.queryForAll();
     }
 
-
-    private WatchlistEntity movieToWatchlistEntity(Movie movie){
+    private WatchlistEntity movieToWatchlistEntity(Movie movie) {
+        // movieToWatchlistEntity implementation...
         return new WatchlistEntity(movie.getApiId(),movie.getTitle(),movie.getDescription(),WatchlistEntity.genresToString(movie.getGenres()), movie.getReleaseYear(),movie.getImgUrl(),movie.getLengthInMinutes(), movie.getRating());
     }
-
 }
